@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { GetImagesListThunk } from "./imagesThunk";
+import { GetImagesListThunk } from "./imagesThunks";
 
 
 
