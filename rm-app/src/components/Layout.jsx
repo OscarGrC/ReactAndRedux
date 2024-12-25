@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom"
 import { Banner } from "../components/banner/banner"
+import { Footer } from "../components/footer/footer"
 
 
 export const Layout = () => {
@@ -7,10 +8,7 @@ export const Layout = () => {
     return <>
         <Banner />
         <Outlet />
-
-        <footer>
-            <p>Grupo T</p>
-        </footer>
+        <Footer />
 
     </>
 }

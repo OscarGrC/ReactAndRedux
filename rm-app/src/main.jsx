@@ -5,7 +5,7 @@ import { MyPhotos } from './pages/myImages/myPhotos'
 import { Layout } from './components/Layout'
 import { Provider } from 'react-redux'
 import { store } from './app/store'
-
+import "./index.css";
 
 
 createRoot(document.getElementById('root')).render(

@@ -1,0 +1,26 @@
+.footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0%;
+    height: 2rem;
+    background-image: url('../../assets/footerBackground.jpg');
+    background-size: cover;
+    background-position: center;
+
+}
+
+.footer__git {
+    position: absolute;
+    top: 30%;
+    right: 2%;
+    width: 1rem;
+    height: auto;
+}
+
+.footer__Linkedin {
+    position: absolute;
+    top: 30%;
+    right: 8%;
+    width: 1rem;
+    height: auto;
+}
