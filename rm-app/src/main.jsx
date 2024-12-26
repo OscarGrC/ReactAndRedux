@@ -2,7 +2,7 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Home } from './pages/home/home'
 import { MyPhotos } from './pages/myImages/myPhotos'
-import { Layout } from './components/Layout'
+import { Layout } from './components/layout/Layout'
 import { Provider } from 'react-redux'
 import { store } from './app/store'
 import "./index.css";

@@ -1,9 +1,15 @@
-import React from "react";
-import "./footer.css";
-import git from "../../assets/github.png";
-import linkedin from "../../assets/linkedin.png";
-export const Footer = () => {
-    return (
+import { Outlet } from "react-router-dom"
+import { Banner } from "../banner/banner"
+
+
+
+export const Layout = () => {
+
+    return <>
+        <div className="banner">
+            <img src={logo} alt="Logotipo" className="banner__logo" />
+        </div>
+        <Outlet />
         <div className="footer">
             <a href="https://github.com/OscarGrC" target="_blank" rel="noopener noreferrer">
                 <img src={git} alt="footerGit" className="footer__git" />
@@ -12,5 +18,6 @@ export const Footer = () => {
                 <img src={linkedin} alt="footerLinkedin" className="footer__Linkedin" />
             </a>
         </div>
-    );
-};
+
+    </>
+}
