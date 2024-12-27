@@ -1,0 +1,42 @@
+.dashboardCard {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    text-align: center;
+    background-color: #fff;
+    position: relative;
+    margin: 10px;
+}
+
+.dashboardCard__image {
+    width: auto;
+    height: 200px;
+    object-fit: cover;
+}
+
+.dashboardCard__actions__like {
+    position: absolute;
+    top: 2%;
+    right: 2%;
+}
+
+.dashboardCard__actions__download {
+    position: absolute;
+    top: 66%;
+    right: 2%;
+}
+
+.dashboardCard__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding: 10px;
+    justify-content: center;
+}
+
+.dashboardCard__chip {
+    font-size: 12px;
+    background-color: #e0e0e0;
+}
