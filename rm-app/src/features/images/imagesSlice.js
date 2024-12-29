@@ -20,9 +20,6 @@ export const ImagesSlice = createSlice({
                 state.page -= 1;
             }
         },
-        resetPage: (state) => {
-            state.page = 1;
-        },
     },
     extraReducers: (builder) => {
         builder.addCase(GetImagesListThunk.pending, (state, action) => {
@@ -43,4 +40,4 @@ export const getImagesStatus = (state) => state.images.status
 export const getImagesError = (state) => state.images.error
 export const getCurrentPage = (state) => state.images.page;
 
-export const { incrementPage, decrementPage, resetPage } = ImagesSlice.actions
+export const { incrementPage, decrementPage } = ImagesSlice.actions

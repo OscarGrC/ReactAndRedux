@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getImagesData, getImagesStatus, getCurrentPage, incrementPage, decrementPage } from "../../features/images/imagesSlice";
+import { GetImagesListThunk } from "../../features/images/imagesThunks";
+import { toggleLike, getLikedImages } from "../../features/likes/likesSlice";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { Navbar } from "../../components/navbar/navbar";
 import { Search } from "../../components/search/search";
 import { DashboardCard } from "../../components/dashboard/dashboardCard/dashboardCard";
-import { useDispatch, useSelector } from "react-redux";
-import { incrementPage, decrementPage, getCurrentPage, getImagesData, getImagesStatus } from "../../features/images/imagesSlice";
-import { GetImagesListThunk } from "../../features/images/imagesThunks";
+import { saveAs } from 'file-saver';
 import "./home.css";
 
 export const Home = () => {
@@ -14,18 +16,11 @@ export const Home = () => {
     const images = useSelector(getImagesData);
     const status = useSelector(getImagesStatus);
     const currentPage = useSelector(getCurrentPage);
+    const likedImages = useSelector(getLikedImages);
 
     useEffect(() => {
         dispatch(GetImagesListThunk(currentPage));
     }, [dispatch, currentPage]);
-
-    const searchFuntion = (query) => {
-        console.log("Search for:", query);
-    };
-
-    const orderByFuntion = (event) => {
-        setSelectValue(event.target.value);
-    };
 
     const sortedImages = [...images].sort((a, b) => {
         if (selectValue === "Like") return b.likes - a.likes;
@@ -35,18 +30,30 @@ export const Home = () => {
         return 0;
     });
 
+    const isImageLiked = (imageUrl) =>
+        likedImages.some((img) => img.url === imageUrl);
+
+    const handleToggleLike = (image) => {
+        dispatch(toggleLike(image));
+    };
+
+
+
+
+
+
     return (
         <>
             <Navbar />
             <div className="controls">
                 <FormControl className="controls__orderBy">
-                    <InputLabel id="demo-simple-select-label">Order By</InputLabel>
+                    <InputLabel id="order-by-select-label">Order By</InputLabel>
                     <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
+                        labelId="order-by-select-label"
+                        id="order-by-select"
                         value={selectValue}
-                        label="orderBy"
-                        onChange={orderByFuntion}
+                        label="Order By"
+                        onChange={(e) => setSelectValue(e.target.value)}
                     >
                         <MenuItem value={"Like"}>Like</MenuItem>
                         <MenuItem value={"Date"}>Date</MenuItem>
@@ -54,7 +61,7 @@ export const Home = () => {
                         <MenuItem value={"Height"}>Height</MenuItem>
                     </Select>
                 </FormControl>
-                <Search className="controls__search" onClick={searchFuntion} />
+                <Search className="controls__search" onClick={(query) => console.log("Search for:", query)} />
             </div>
             {status === "pending" && <p>Loading...</p>}
             {status === "rejected" && <p>Error loading images</p>}
@@ -63,10 +70,11 @@ export const Home = () => {
                     <DashboardCard
                         key={index}
                         imageSrc={image.url}
-                        isLiked={false}
-                        onLikeToggle={() => console.log("like", image)}
-                        onDownload={() => console.log("download", image)}
-                        onClickImg={() => console.log("click en img", image)}
+                        isLiked={isImageLiked(image.url)}
+                        downloadLocation={image.download}
+                        name={image.alt_description}
+                        onLikeToggle={() => handleToggleLike(image)}
+                        onClickImg={() => console.log("Clicked on image:", image)}
                         tags={[]}
                     />
                 ))}
@@ -75,9 +83,7 @@ export const Home = () => {
                 <button onClick={() => dispatch(decrementPage())} disabled={currentPage === 1}>
                     Previous Page
                 </button>
-                <button onClick={() => dispatch(incrementPage())}>
-                    Next Page
-                </button>
+                <button onClick={() => dispatch(incrementPage())}>Next Page</button>
             </div>
         </>
     );

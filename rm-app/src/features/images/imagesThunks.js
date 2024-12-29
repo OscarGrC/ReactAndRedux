@@ -13,7 +13,7 @@ export const GetImagesListThunk = createAsyncThunk("images/getImagesListFromApi"
                 height: item.height,
                 alt_description: item.alternative_slugs.es,
                 url: item.urls.small,
-                download: item.links.download,
+                download: item.links.download_location,
                 likes: item.likes,
                 description: item.description,
             }));
