@@ -7,7 +7,7 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { Navbar } from "../../components/navbar/navbar";
 import { Search } from "../../components/search/search";
 import { DashboardCard } from "../../components/dashboard/dashboardCard/dashboardCard";
-import { saveAs } from 'file-saver';
+import { PopupImgInfo } from "../../components/popupImgInfo/popupImgInfo";
 import "./home.css";
 
 export const Home = () => {
@@ -17,6 +17,7 @@ export const Home = () => {
     const status = useSelector(getImagesStatus);
     const currentPage = useSelector(getCurrentPage);
     const likedImages = useSelector(getLikedImages);
+    const [selectedImage, setSelectedImage] = useState(null);
 
     useEffect(() => {
         dispatch(GetImagesListThunk(currentPage));
@@ -36,8 +37,13 @@ export const Home = () => {
     const handleToggleLike = (image) => {
         dispatch(toggleLike(image));
     };
-
-
+    const handleImageClick = (image) => {
+        console.log("Clicked image:", image);
+        setSelectedImage(image);
+    };
+    const handleClosePopup = () => {
+        setSelectedImage(null);
+    };
 
 
 
@@ -74,7 +80,7 @@ export const Home = () => {
                         downloadLocation={image.download}
                         name={image.alt_description}
                         onLikeToggle={() => handleToggleLike(image)}
-                        onClickImg={() => console.log("Clicked on image:", image)}
+                        onClickImg={() => handleImageClick(image)}
                         tags={[]}
                     />
                 ))}
@@ -85,6 +91,13 @@ export const Home = () => {
                 </button>
                 <button onClick={() => dispatch(incrementPage())}>Next Page</button>
             </div>
+            {selectedImage && (
+                <PopupImgInfo
+                    image={selectedImage}
+                    onLikeToggle={handleToggleLike}
+                    onClose={handleClosePopup}
+                />
+            )}
         </>
     );
 };
