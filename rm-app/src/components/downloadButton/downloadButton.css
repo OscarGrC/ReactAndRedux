@@ -1,5 +1,5 @@
 .downloadButton {
-    background-color: transparent;
+    background-color: white;
     border: none;
     border-radius: 50%;
     width: 30px;
@@ -16,4 +16,5 @@
     width: 20px;
     height: 20px;
     object-fit: contain;
+    margin-left: -1px;
 }

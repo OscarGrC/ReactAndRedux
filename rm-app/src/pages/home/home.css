@@ -1,0 +1,35 @@
+.controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 100px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.controls__orderBy {
+    width: 200px;
+}
+
+.css-sc8y68-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
+    height: 34px;
+}
+
+.css-19qnlrw-MuiFormLabel-root-MuiInputLabel-root {
+
+    top: -9px !important;
+}
+
+.image-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+@media (max-width: 768px) {
+    .image-list {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        align-items: center;
+    }
+}

@@ -1,6 +1,6 @@
 import React from "react";
 import "./navbar.css";
-import navbarBurger from "../../assets/menu-burger.png";
+import navbarBurger from "../../assets/menuBurger.png";
 import { Link } from "react-router-dom";
 import { Chip } from "@mui/material";
 export const Navbar = () => {

@@ -8,13 +8,21 @@ export const ImagesSlice = createSlice({
     initialState: {
         data: [],
         status: "idle",
-        error: false
+        error: false,
+        page: 1
     },
     reducers: {
-        "AddImages": (state, action) => {
-            /////
-            state.data.push({ name: action.payload })
-        }
+        incrementPage: (state) => {
+            state.page += 1;
+        },
+        decrementPage: (state) => {
+            if (state.page > 1) {
+                state.page -= 1;
+            }
+        },
+        resetPage: (state) => {
+            state.page = 1;
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(GetImagesListThunk.pending, (state, action) => {
@@ -33,5 +41,6 @@ export const ImagesSlice = createSlice({
 export const getImagesData = (state) => state.images.data
 export const getImagesStatus = (state) => state.images.status
 export const getImagesError = (state) => state.images.error
+export const getCurrentPage = (state) => state.images.page;
 
-export const { AddImages } = ImagesSlice.actions
+export const { incrementPage, decrementPage, resetPage } = ImagesSlice.actions

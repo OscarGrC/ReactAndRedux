@@ -15,7 +15,7 @@
 }
 
 .footer {
-    position: absolute;
+    position: relative;
     width: 100%;
     bottom: 0%;
     height: 2rem;
@@ -36,7 +36,7 @@
 .footer__Linkedin {
     position: absolute;
     top: 30%;
-    right: 8%;
+    right: 5%;
     width: 1rem;
     height: auto;
 }
