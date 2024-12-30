@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import "./search.css";
 
+
 export const Search = ({ onClick }) => {
-    const [searchTerm, setSearchTerm] = useState("");
+    const [searchTerm, setSearchTerm] = useState('');
 
     const inputChange = (e) => {
         setSearchTerm(e.target.value);
     };
 
     const buttonClick = () => {
-        if (onClick) {
-            onClick(searchTerm);
-        }
+        onClick(searchTerm);
     };
 
     return (

@@ -6,8 +6,10 @@ import { toggleLike, getLikedImages } from "../../features/likes/likesSlice";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { Navbar } from "../../components/navbar/navbar";
 import { Search } from "../../components/search/search";
-import { DashboardCard } from "../../components/dashboard/dashboardCard/dashboardCard";
+import { DashboardCard } from "../../components/dashboard/dashboardCard";
 import { PopupImgInfo } from "../../components/popupImgInfo/popupImgInfo";
+import { fetchSearchResults } from '../../features/search/searchThunks';
+import { getSearchResults, getSearchStatus } from '../../features/search/searchSlice';
 import "./home.css";
 
 export const Home = () => {
@@ -18,6 +20,8 @@ export const Home = () => {
     const currentPage = useSelector(getCurrentPage);
     const likedImages = useSelector(getLikedImages);
     const [selectedImage, setSelectedImage] = useState(null);
+    const searchResults = useSelector(getSearchResults);
+    const searchStatus = useSelector(getSearchStatus);
 
     useEffect(() => {
         dispatch(GetImagesListThunk(currentPage));
@@ -38,14 +42,15 @@ export const Home = () => {
         dispatch(toggleLike(image));
     };
     const handleImageClick = (image) => {
-        console.log("Clicked image:", image);
         setSelectedImage(image);
     };
     const handleClosePopup = () => {
         setSelectedImage(null);
     };
 
-
+    const handleSearch = (query) => {
+        dispatch(fetchSearchResults(query));
+    };
 
 
     return (
@@ -67,7 +72,7 @@ export const Home = () => {
                         <MenuItem value={"Height"}>Height</MenuItem>
                     </Select>
                 </FormControl>
-                <Search className="controls__search" onClick={(query) => console.log("Search for:", query)} />
+                <Search className="controls__search" onClick={handleSearch} />
             </div>
             {status === "pending" && <p>Loading...</p>}
             {status === "rejected" && <p>Error loading images</p>}
@@ -94,7 +99,6 @@ export const Home = () => {
             {selectedImage && (
                 <PopupImgInfo
                     image={selectedImage}
-                    onLikeToggle={handleToggleLike}
                     onClose={handleClosePopup}
                 />
             )}

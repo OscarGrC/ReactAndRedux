@@ -1,7 +1,7 @@
 import React from "react";
 import "./dashboardCard.css";
-import { LikeButton } from "../../likeBotton/likeButton";
-import { DownloadButton } from "../../downloadButton/downloadButton";
+import { LikeButton } from "../likeBotton/likeButton";
+import { DownloadButton } from "../downloadButton/downloadButton";
 import Chip from "@mui/material/Chip";
 
 export const DashboardCard = ({ imageSrc, isLiked, onLikeToggle, downloadLocation, name, onClickImg, tags }) => {

@@ -39,4 +39,8 @@
     right: 5%;
     width: 1rem;
     height: auto;
+
+    @media (max-width: 625px) {
+        right: 10%;
+    }
 }
