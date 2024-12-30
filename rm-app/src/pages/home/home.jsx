@@ -3,13 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getImagesData, getImagesStatus, getCurrentPage, incrementPage, decrementPage } from "../../features/images/imagesSlice";
 import { GetImagesListThunk } from "../../features/images/imagesThunks";
 import { toggleLike, getLikedImages } from "../../features/likes/likesSlice";
+import { fetchSearchResults } from "../../features/search/searchThunks";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { Navbar } from "../../components/navbar/navbar";
 import { Search } from "../../components/search/search";
 import { DashboardCard } from "../../components/dashboard/dashboardCard";
 import { PopupImgInfo } from "../../components/popupImgInfo/popupImgInfo";
-import { fetchSearchResults } from '../../features/search/searchThunks';
-import { getSearchResults, getSearchStatus } from '../../features/search/searchSlice';
 import "./home.css";
 
 export const Home = () => {
@@ -20,8 +19,6 @@ export const Home = () => {
     const currentPage = useSelector(getCurrentPage);
     const likedImages = useSelector(getLikedImages);
     const [selectedImage, setSelectedImage] = useState(null);
-    const searchResults = useSelector(getSearchResults);
-    const searchStatus = useSelector(getSearchStatus);
 
     useEffect(() => {
         dispatch(GetImagesListThunk(currentPage));
@@ -41,12 +38,15 @@ export const Home = () => {
     const handleToggleLike = (image) => {
         dispatch(toggleLike(image));
     };
+
     const handleImageClick = (image) => {
         setSelectedImage(image);
     };
+
     const handleClosePopup = () => {
         setSelectedImage(null);
     };
+
 
     const handleSearch = (query) => {
         dispatch(fetchSearchResults(query));
