@@ -3,14 +3,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { Navbar } from "../../components/navbar/navbar";
 import { Search } from "../../components/search/search";
 import { DashboardCard } from "../../components/dashboard/dashboardCard";
-import { PopupImgInfo } from "../../components/popupImgInfo/popupImgInfo";
+import { PopupImgEdit } from "../../components/popupImgEdit/popupImgEdit"
 import { toggleLike, getLikedImages } from "../../features/likes/likesSlice";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import "../home/home.css";
 
 export const MyPhotos = () => {
     const dispatch = useDispatch();
-    const likedImages = useSelector(getLikedImages);
+    const likedImagesFromRedux = useSelector(getLikedImages);
+    const [likedImages, setLikedImages] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [selectValue, setSelectValue] = useState("");
     const [query, setQuery] = useState("");
@@ -19,6 +20,10 @@ export const MyPhotos = () => {
     const imagesPerPage = 10;
 
     const imageListRef = useRef(null);
+
+    useEffect(() => {
+        setLikedImages(likedImagesFromRedux);
+    }, [likedImagesFromRedux]);
 
     const filteredImages = useMemo(() => {
         let images = likedImages;
@@ -58,10 +63,17 @@ export const MyPhotos = () => {
 
     const handleClosePopup = () => {
         setSelectedImage(null);
+        refreshImages();
     };
 
     const handleToggleLike = (image) => {
         dispatch(toggleLike(image));
+    };
+
+
+    const refreshImages = () => {
+        const localImages = JSON.parse(localStorage.getItem("likedImages")) || [];
+        setLikedImages([...localImages]);
     };
 
     useEffect(() => {
@@ -142,7 +154,7 @@ export const MyPhotos = () => {
             </div>
 
             {selectedImage && (
-                <PopupImgInfo
+                <PopupImgEdit
                     image={selectedImage}
                     onClose={handleClosePopup}
                 />
@@ -150,3 +162,4 @@ export const MyPhotos = () => {
         </>
     );
 };
+

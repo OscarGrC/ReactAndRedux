@@ -1,0 +1,90 @@
+.popupImgEdit {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+
+
+}
+
+.popupImgEdit__content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    @media (max-width: 1000px) {
+        max-width: 300px;
+        height: 540px;
+    }
+}
+
+.popupImgEdit__close {
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    border: none;
+    border-radius: 50%;
+    background-color: black;
+    color: white;
+    font-size: 1.5em;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.popupImgEdit__close:hover {
+    transform: scale(1.1);
+}
+
+.popupImgEdit__image {
+    border-radius: 10px;
+    max-width: 300px;
+
+    @media (max-width: 1000px) {
+        max-width: 300px;
+        max-height: 310px;
+    }
+
+}
+
+.popupImgEdit__details {
+    font-size: 0.8em;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.popupImgEdit__actions {
+    display: flex;
+    justify-content: space-between;
+
+    @media (max-width: 1000px) {
+        position: absolute;
+        bottom: 1%;
+        gap: 240px;
+
+    }
+}
+
+.popupImgEdit__header__input {
+    margin-top: 20px;
+}
+
+.popupImgEdit__icon {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    bottom: 184px;
+    right: 5px;
+}

@@ -3,7 +3,7 @@ import "./layout.css";
 import logo from "../../assets/logo.png"
 import git from "../../assets/github.png"
 import linkedin from "../../assets/linkedin.png"
-
+import { ToastContainer } from "react-toastify";
 
 export const Layout = () => {
 
@@ -11,6 +11,7 @@ export const Layout = () => {
         <div className="banner">
             <img src={logo} alt="Logotipo" className="banner__logo" />
         </div>
+        <ToastContainer autoClose={3000} />
         <Outlet />
         <div className="footer">
             <a href="https://github.com/OscarGrC" target="_blank">

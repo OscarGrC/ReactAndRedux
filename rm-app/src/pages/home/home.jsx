@@ -37,6 +37,7 @@ export const Home = () => {
 
     const handleToggleLike = (image) => {
         dispatch(toggleLike(image));
+        console.log(image)
     };
 
     const handleImageClick = (image) => {
