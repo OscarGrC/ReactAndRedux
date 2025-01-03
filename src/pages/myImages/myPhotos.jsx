@@ -1,29 +1,22 @@
 import React, { useState, useMemo, useRef, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Navbar } from "../../components/navbar/navbar";
 import { Search } from "../../components/search/search";
 import { DashboardCard } from "../../components/dashboard/dashboardCard";
-import { PopupImgEdit } from "../../components/popupImgEdit/popupImgEdit"
-import { toggleLike, getLikedImages } from "../../features/likes/likesSlice";
+import { PopupImgEdit } from "../../components/popupImgEdit/popupImgEdit";
+import { getLikedImages } from "../../features/likes/likesSlice";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import "../home/home.css";
 
 export const MyPhotos = () => {
-    const dispatch = useDispatch();
-    const likedImagesFromRedux = useSelector(getLikedImages);
-    const [likedImages, setLikedImages] = useState([]);
+    const likedImages = useSelector(getLikedImages);
     const [currentPage, setCurrentPage] = useState(1);
     const [selectValue, setSelectValue] = useState("");
     const [query, setQuery] = useState("");
     const [selectedImage, setSelectedImage] = useState(null);
     const [applyMargin, setApplyMargin] = useState(false);
     const imagesPerPage = 10;
-
     const imageListRef = useRef(null);
-
-    useEffect(() => {
-        setLikedImages(likedImagesFromRedux);
-    }, [likedImagesFromRedux]);
 
     const filteredImages = useMemo(() => {
         let images = likedImages;
@@ -63,17 +56,6 @@ export const MyPhotos = () => {
 
     const handleClosePopup = () => {
         setSelectedImage(null);
-        refreshImages();
-    };
-
-    const handleToggleLike = (image) => {
-        dispatch(toggleLike(image));
-    };
-
-
-    const refreshImages = () => {
-        const localImages = JSON.parse(localStorage.getItem("likedImages")) || [];
-        setLikedImages([...localImages]);
     };
 
     useEffect(() => {
@@ -123,11 +105,7 @@ export const MyPhotos = () => {
                 {paginatedImages.map((image, index) => (
                     <DashboardCard
                         key={index}
-                        imageSrc={image.url}
-                        isLiked={true}
-                        downloadLocation={image.download}
-                        name={image.description?.replace(/-/g, " ")}
-                        onLikeToggle={() => handleToggleLike(image)}
+                        image={image}
                         onClickImg={() => handleImageClick(image)}
                         tags={[]}
                     />
@@ -153,13 +131,12 @@ export const MyPhotos = () => {
                 </button>
             </div>
 
-            {selectedImage !== null ? (
+            {selectedImage !== null && (
                 <PopupImgEdit
                     image={selectedImage}
                     onClose={handleClosePopup}
                 />
-            ) : <></>}
+            )}
         </>
     );
 };
-

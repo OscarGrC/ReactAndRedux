@@ -1,6 +1,18 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-
+const transformDescription = (description) => {
+    const words = description.split('-');
+    words.pop();
+    const transformedDescription = words.join(' ');
+    return transformedDescription.charAt(0).toUpperCase() + transformedDescription.slice(1);
+};
+const transformDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+};
 
 export const GetImagesListThunk = createAsyncThunk("images/getImagesListFromApi", async (page = 1) => {
     try {
@@ -8,14 +20,13 @@ export const GetImagesListThunk = createAsyncThunk("images/getImagesListFromApi"
         if (request.ok) {
             const imagesDataJson = await request.json()
             return imagesDataJson.map((item) => ({
-                created_at: item.created_at,
+                created_at: transformDate(item.created_at),
                 width: item.width,
                 height: item.height,
-                alt_description: item.alternative_slugs.es,
                 url: item.urls.small,
                 download: item.urls.full,
                 likes: item.likes,
-                description: item.description,
+                description: item.description || transformDescription(item.alternative_slugs.es),
             }));
         } else {
             return []

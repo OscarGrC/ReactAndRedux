@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getImagesData, getImagesStatus, getCurrentPage, incrementPage, decrementPage } from "../../features/images/imagesSlice";
 import { GetImagesListThunk } from "../../features/images/imagesThunks";
-import { toggleLike, getLikedImages } from "../../features/likes/likesSlice";
 import { fetchSearchResults } from "../../features/search/searchThunks";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { Navbar } from "../../components/navbar/navbar";
@@ -17,7 +16,6 @@ export const Home = () => {
     const images = useSelector(getImagesData);
     const status = useSelector(getImagesStatus);
     const currentPage = useSelector(getCurrentPage);
-    const likedImages = useSelector(getLikedImages);
     const [selectedImage, setSelectedImage] = useState(null);
 
     useEffect(() => {
@@ -32,14 +30,6 @@ export const Home = () => {
         return 0;
     });
 
-    const isImageLiked = (imageUrl) =>
-        likedImages.some((img) => img.url === imageUrl);
-
-    const handleToggleLike = (image) => {
-        dispatch(toggleLike(image));
-        console.log(image)
-    };
-
     const handleImageClick = (image) => {
         setSelectedImage(image);
     };
@@ -48,11 +38,9 @@ export const Home = () => {
         setSelectedImage(null);
     };
 
-
     const handleSearch = (query) => {
         dispatch(fetchSearchResults(query));
     };
-
 
     return (
         <>
@@ -81,13 +69,9 @@ export const Home = () => {
                 {sortedImages.map((image, index) => (
                     <DashboardCard
                         key={index}
-                        imageSrc={image.url}
-                        isLiked={isImageLiked(image.url)}
-                        downloadLocation={image.download}
-                        name={image.alt_description}
-                        onLikeToggle={() => handleToggleLike(image)}
-                        onClickImg={() => handleImageClick(image)}
+                        image={image}
                         tags={[]}
+                        onClickImg={() => handleImageClick(image)}
                     />
                 ))}
             </div>
@@ -97,12 +81,12 @@ export const Home = () => {
                 </button>
                 <button onClick={() => dispatch(incrementPage())}>Next Page</button>
             </div>
-            {selectedImage !== null ? (
+            {selectedImage !== null && (
                 <PopupImgInfo
                     image={selectedImage}
                     onClose={handleClosePopup}
                 />
-            ) : <></>}
+            )}
         </>
     );
 };
