@@ -1,6 +1,5 @@
 import React, { useState, useMemo, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Navbar } from "../../components/navbar/navbar";
 import { Search } from "../../components/search/search";
 import { DashboardCard } from "../../components/dashboard/dashboardCard";
 import { PopupImgEdit } from "../../components/popupImgEdit/popupImgEdit";
@@ -73,7 +72,6 @@ export const MyPhotos = () => {
 
     return (
         <>
-            <Navbar />
             <div className="controls">
                 <FormControl className="controls__orderBy">
                     <InputLabel id="order-by-select-label">Order By</InputLabel>
@@ -107,7 +105,7 @@ export const MyPhotos = () => {
                         key={index}
                         image={image}
                         onClickImg={() => handleImageClick(image)}
-                        tags={[]}
+                        tags={["Tag", "Somos Ejemplos", "De Tags"]}
                     />
                 ))}
             </div>

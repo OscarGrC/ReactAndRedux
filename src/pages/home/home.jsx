@@ -4,7 +4,6 @@ import { getImagesData, getImagesStatus, getCurrentPage, incrementPage, decremen
 import { GetImagesListThunk } from "../../features/images/imagesThunks";
 import { fetchSearchResults } from "../../features/search/searchThunks";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import { Navbar } from "../../components/navbar/navbar";
 import { Search } from "../../components/search/search";
 import { DashboardCard } from "../../components/dashboard/dashboardCard";
 import { PopupImgInfo } from "../../components/popupImgInfo/popupImgInfo";
@@ -44,7 +43,6 @@ export const Home = () => {
 
     return (
         <>
-            <Navbar />
             <div className="controls">
                 <FormControl className="controls__orderBy">
                     <InputLabel id="order-by-select-label">Order By</InputLabel>
@@ -70,7 +68,7 @@ export const Home = () => {
                     <DashboardCard
                         key={index}
                         image={image}
-                        tags={[]}
+                        tags={["Tag", "Somos Ejemplos", "De Tags"]}
                         onClickImg={() => handleImageClick(image)}
                     />
                 ))}
