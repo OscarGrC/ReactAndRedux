@@ -97,12 +97,12 @@ export const Home = () => {
                 </button>
                 <button onClick={() => dispatch(incrementPage())}>Next Page</button>
             </div>
-            {selectedImage && (
+            {selectedImage !== null ? (
                 <PopupImgInfo
                     image={selectedImage}
                     onClose={handleClosePopup}
                 />
-            )}
+            ) : <></>}
         </>
     );
 };

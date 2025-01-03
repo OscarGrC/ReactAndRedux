@@ -153,12 +153,12 @@ export const MyPhotos = () => {
                 </button>
             </div>
 
-            {selectedImage && (
+            {selectedImage !== null ? (
                 <PopupImgEdit
                     image={selectedImage}
                     onClose={handleClosePopup}
                 />
-            )}
+            ) : <></>}
         </>
     );
 };
